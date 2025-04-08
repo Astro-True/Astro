@@ -35,12 +35,22 @@
   <div id="terminal"></div>
 
   <script>
-    const yaMostrado = localStorage.getItem("1sustoHacker");
+    const terminal = document.getElementById("terminal");
 
-    if (!yaMostrado) {
-      localStorage.setItem("1sustoHacker", "true");
+    const contadorVisitas = parseInt(localStorage.getItem("contadorSusto") || "0");
 
-      const terminal = document.getElementById("terminal");
+    if (!localStorage.getItem("sustoHacker") || contadorVisitas >= 5) {
+      // Reinicia el susto si no ha sido mostrado o si ya se alcanzaron 5 visitas
+      localStorage.setItem("sustoHacker", "true");
+      localStorage.setItem("contadorSusto", "1");
+    } else {
+      localStorage.setItem("contadorSusto", (contadorVisitas + 1).toString());
+    }
+
+    const yaMostrado = localStorage.getItem("sustoHacker");
+
+    if (yaMostrado === "true" && contadorVisitas < 5) {
+      localStorage.setItem("sustoHacker", "false"); // evitar repetir dentro de la misma sesión
 
       const generarLineasAleatorias = () => {
         const carpetas = ["/DCIM/", "/Pictures/", "/WhatsApp/", "/Instagram/", "/Downloads/", "/Telegram/"];
@@ -84,16 +94,13 @@
           terminal.innerHTML += lineasFalsas[index] + "\n";
           terminal.scrollTop = terminal.scrollHeight;
           index++;
-          setTimeout(escribirLinea, 1); // Puedes ajustar este valor
+          setTimeout(escribirLinea, 1);
         } else {
           terminal.innerHTML += "\n<span class='parpadeo'>_</span>";
         }
       };
-
-      const audio = new Audio("https://www.myinstants.com/media/sounds/movie_1.mp3");
-      audio.play();
+      
       escribirLinea();
-
     } else {
       document.body.innerHTML = "<h1 style='color: white; text-align: center;'>Error 404</h1>";
     }
