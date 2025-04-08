@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenido</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    #terminal {
+      white-space: pre;
+      overflow-y: scroll;
+      max-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+
+  <script>
+    const yaMostrado = localStorage.getItem("sustoHacker");
+
+    if (!yaMostrado) {
+      localStorage.setItem("sustoHacker", "true");
+
+      const terminal = document.getElementById("terminal");
+
+      const lineasFalsas = [
+  "Conectando con el sistema del","dispositivo...",
+  "Accediendo al almacenamiento interno (device:/)...",
+  "Escaneando directorios: /DCIM/, /Pictures/, /WhatsApp/...",
+  "Archivos encontrados: 3421 imágenes",
+  "Archivo encontrado: /DCIM/Camera/IMG_20230421_104523.jpg",
+  "Archivo encontrado: /DCIM/Camera/IMG_20230422_151223.jpg",
+  "Archivo encontrado: /Pictures/Screenshots/Screenshot_2024-01-18-14-32-09.png",
+  "Archivo encontrado: /WhatsApp/Media/WhatsApp Images/IMG-20230909-WA0001.jpg",
+  "Archivo encontrado: /WhatsApp/Media/WhatsApp Images/IMG-20230911-WA0002.jpg",
+  "Archivo encontrado: /Pictures/Instagram/insta_selfie_01.jpg",
+  "Iniciando transferencia de archivos al servidor remoto...",
+  "Subida en progreso: 10%",
+  "Subida en progreso: 23%",
+  "Subida en progreso: 41%",
+  "Subida en progreso: 55%",
+  "Subida en progreso: 68%",
+  "Subida en progreso: 84%",
+  "Subida en progreso: 97%",
+  "Subida completada: 100%",
+  "Imágenes almacenadas exitosamente en el servidor.",
+  "Sistema comprometido. No puedes escapar.",
+  "Cierre forzoso en 3...",
+  "2...",
+  "1..."
+];
+      let index = 0;
+
+      const escribirLinea = () => {
+        if (index < lineasFalsas.length) {
+          terminal.innerHTML += lineasFalsas[index] + "\n";
+          index++;
+          setTimeout(escribirLinea, 100);
+        }
+      };
+      // Reproduce sonido para asustar más
+      const audio = new Audio("https://www.myinstants.com/media/sounds/movie_1.mp3");
+      audio.play();
+      escribirLinea();
+    } else {
+      document.body.innerHTML = "<h1 style='color: white;'>Erro 404</h1>";
+    }
+  </script>
+</body>
+</html>
